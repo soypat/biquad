@@ -10,7 +10,7 @@ type Notch struct {
 
 // NewNotch creates a notch filter from
 //  Fs: sampling frequency
-//  f0: working frequency
+//  f0: Notched frequency (will be filtered out)
 //  BW: bandwidth of the filter in octaves
 func NewNotch(Fs, f0, BW float64) (*Notch, error) {
 	switch {

@@ -42,3 +42,27 @@ if err != nil {
 ```
 ![Low Pass example usage](./_assets/example_lowpass.png)
 > Low pass filter applied to a composite signal to effectively cancel out the higher frequency noise.
+
+
+## Bode plots
+There is some semblance of a Bode plotter for discrete time (z transfer) functions under `bode.go`. 
+
+This is the result of plotting the Bode of a notch filter:
+
+![Notch filter Bode plot](./_assets/notch_f0=4.png)
+> Notch filter Bode Plot.
+
+This API is not yet exposed because I'm still unsure of what exactly is being plotted (units). If you're interested please help out! I'll be looking at issues.
+Below is the code for the Bode Plot:
+```go
+const (
+    fs = 100.
+    ts = 1 / fs
+)
+lp, err := NewNotch(fs, 4, 1)
+if err != nil {
+    t.Fatal(err)
+}
+H := lp.getH()
+plotBode("notch_f0=4.png", ts, H)
+```

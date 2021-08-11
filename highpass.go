@@ -24,7 +24,7 @@ func NewHighPass(Fs, f0, BW float64) (*HighPass, error) {
 	alpha := alphaCalc{}.bw(w0, BW)
 	var (
 		b0 = (1 + cos) / 2
-		b1 = -(1 - cos)
+		b1 = -(1 + cos)
 		b2 = b0
 		a0 = 1 + alpha
 		a1 = -2 * cos
