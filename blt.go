@@ -12,6 +12,7 @@ type blt struct {
 	ptr uint
 }
 
+//  H(z) = (b_0 + b_1*z^{-1} + b_2*z^{-2}) / (a_0 + a_1*z^{-1} + a_2*z^{-2})
 func newBLT(a0, a1, a2, b0, b1, b2 float64) blt {
 	if a0 == 0 {
 		panic("a0 can not be 0")
