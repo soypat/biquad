@@ -1,9 +1,10 @@
 package biquad
 
-// Signal represents a stored data representing a signal.
+// Signal represents a stored data representing a digital signal.
 type Signal interface {
+	// Should return the length of the data.
 	Len() int
-
+	// Returns the i-th data point (time and signal data).
 	XY(int) (t, y float64)
 }
 
@@ -31,6 +32,7 @@ func MakeSignal(Fs float64, data []float64) Signal {
 }
 
 type signal struct {
+	// Sampling period
 	ts   float64
 	data []float64
 }
@@ -41,6 +43,7 @@ func (s signal) XY(i int) (t, y float64) {
 	}
 	return s.ts * float64(i), s.data[i]
 }
+
 func (s signal) Len() int {
 	return len(s.data)
 }
