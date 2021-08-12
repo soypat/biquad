@@ -17,9 +17,9 @@ func (b blt) getH() func(z complex128) complex128 {
 }
 
 // Plot the BodePlot of a discrete time transfer function H and the sampling period.
-func plotBode(plotname string, ts float64, H func(z complex128) complex128) {
+func plotBode(plotname string, ts float64, wmax float64, H func(z complex128) complex128) {
 	p := plot.New()
-	xy := noNaN{bodeFunc{H, ts}}
+	xy := noNaN{bodeFunc{H: H, ts: ts, wmax: wmax}}
 	bode, err := plotter.NewLine(xy)
 	if err != nil {
 		panic(err)
@@ -32,19 +32,22 @@ func plotBode(plotname string, ts float64, H func(z complex128) complex128) {
 	p.Save(30*font.Centimeter, 20*font.Centimeter, plotname)
 }
 
+const nBode = 400
+
 // Plot discrete time systems from H(z)
 type bodeFunc struct {
-	H  func(complex128) complex128
-	ts float64 // sampling period
+	H    func(complex128) complex128
+	ts   float64 // sampling period
+	wmax float64 // max frequency graphed
 }
 
-func (b bodeFunc) Len() int { return 400 }
+func (b bodeFunc) Len() int { return nBode }
 
 // z -> e^{jwT} == cos(wT) + j*sin(wT)
 func (b bodeFunc) XY(i int) (x, y float64) {
 	w := float64(i) + 0.1
-	x = math.Pow(w, 2)
-	y = real(b.H(complex(math.Cos(w*b.ts), math.Sin(w*b.ts))))
+	x = math.Pow(w, math.Log(b.wmax)/math.Log(float64(nBode)))
+	y = real(b.H(complex(math.Cos(x*b.ts), math.Sin(x*b.ts))))
 	return x, y
 }
 
