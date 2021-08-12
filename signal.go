@@ -8,6 +8,16 @@ type Signal interface {
 	XY(int) (t, y float64)
 }
 
+// DiscreteFilter represents a recursive discrete filter.
+// Data samples are passed into the filter with DiscreteProcess
+// and the current filtered result can then be obtained with
+// YNext(). YNext() should return the same value if called multiple
+// times with no intermediate DiscreteProcess call.
+type RecursiveFilter interface {
+	DiscreteProcess(x float64)
+	YNext() (y float64)
+}
+
 // XYer wraps the Len and XY methods.
 type filtered struct {
 	// Original Signal.
