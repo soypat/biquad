@@ -23,7 +23,7 @@ func TestButterBode(t *testing.T) {
 	)
 	// Design a digital low-pass Butterworth filter with a 3dB cut-off frequency of 2kHz
 	// and minimum attenuation of 30dB at 4.25kHz for a sampling rate of 10kHz
-	b, err := NewButterworthLP(1e4, 2e3)
+	b, err := NewButterworthLP(1e4, 2e2)
 	if err != nil {
 		t.Fatal(err)
 	}
