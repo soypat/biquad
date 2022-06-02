@@ -1,6 +1,8 @@
 # biquad
 Lightweight Bilinear Transform (BLT) filter implementations for DSP in sensor fusion and audio.
 
+This is mostly a toy library. For production ready filtering see [pctl](https://github.com/brandondube/pctl) by brandondube.
+
 Below is an example of usage and the resulting plot:
 ```go
 const (
